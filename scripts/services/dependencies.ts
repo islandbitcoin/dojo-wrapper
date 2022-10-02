@@ -26,7 +26,7 @@ function randomItemString(input: string) {
   return input[Math.floor(Math.random() * input.length)];
 }
 
-const serviceName = "jam";
+const serviceName = "dojo";
 const fullChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 type Check = {
   currentError(config: T.Config): string | void;
