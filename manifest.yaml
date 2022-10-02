@@ -1,5 +1,5 @@
 id: dojo 
-title: RoninDojo
+title: Dojo
 version: 1.17.0
 release-notes: Initial release to embassyOS
 license: mit
@@ -23,7 +23,8 @@ main:
   entrypoint: "docker_entrypoint.sh"
   args: []
   mounts:
-    main: /root
+    main: /app
+    dojo: /dev/sda1
 health-checks: {}
 config:
   get:
@@ -36,7 +37,9 @@ volumes:
   main:
     type: data
   compat:
-    type: assets 
+    type: assets
+  dojo:
+    type: data 
 interfaces:
   main:
     name: Dojo Web UI
@@ -102,10 +105,10 @@ backup:
       - duplicity
       - create
       - /mnt/backup
-      - /root/data
+      - /app/data
     mounts:
       BACKUP: "/mnt/backup" 
-      main: "/root/data"
+      main: "/app/data"
   restore:
     type: docker
     image: compat
@@ -114,8 +117,8 @@ backup:
     args:
       - duplicity
       - restore
-      - /root/data
+      - /app/data
       - /mnt/backup
     mounts:
       BACKUP: "/mnt/backup"
-      main: "/root/data"
+      main: "/app/data"

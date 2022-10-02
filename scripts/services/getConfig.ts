@@ -1,7 +1,7 @@
 import { compat, types as T } from "../deps.ts";
 
 export const getConfig: T.ExpectedExports.getConfig = compat.getConfig({
-  "tor-address": {
+  "tor_address": {
     "name": "Tor Address",
     "description": "The Tor address of the network interface",
     "type": "pointer",
@@ -10,7 +10,7 @@ export const getConfig: T.ExpectedExports.getConfig = compat.getConfig({
     "target": "tor-address",
     "interface": "main",
   },
-  "lan-address": {
+  "lan_address": {
       "name": "Network LAN Address",
       "description": "The LAN address for the network interface.",
       "type": "pointer",

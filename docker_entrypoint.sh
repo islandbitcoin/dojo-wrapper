@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 set -e
 
@@ -10,11 +10,11 @@ _term() {
 
 # Setting env-vars
 echo "Setting environment variables..."
-export TOR_HOST=$(yq e '.tor-address' /root/start9/config.yaml)
-export LAN_HOST=$(yq e '.lan-address' /root/start9/config.yaml)
-export RPC_TYPE=$(yq e '.bitcoind.type' /root/start9/config.yaml)
-export RPC_USER=$(yq e '.bitcoind.user' /root/start9/config.yaml)
-export RPC_PASSWORD=$(yq e '.bitcoind.password' /root/start9/config.yaml)
+export TOR_HOST=$(yq -r '.tor_address' /app/start9/config.yaml)
+export LAN_HOST=$(yq -r '.lan_address' /app/start9/config.yaml)
+export RPC_TYPE=$(yq -r '.bitcoind.type' /app/start9/config.yaml)
+export RPC_USER=$(yq -r '.bitcoind.user' /app/start9/config.yaml)
+export RPC_PASSWORD=$(yq -r '.bitcoind.password' /app/start9/config.yaml)
 export RPC_PORT=8332
 if [ "$RPC_TYPE" = "internal-proxy" ]; then
 	export RPC_HOST="btc-rpc-proxy.embassy"
@@ -24,16 +24,19 @@ else
 	echo "Running on Bitcoin Core..."
 fi
 
-# ## Configuration Settings
-# echo "Configuring Dojo..."
-# sed -i "s|BITCOIND_RPC_USER=.*|BITCOIND_RPC_USER=$RPC_USER|" /home/node/app/docker/my-dojo/conf/docker-bitcoind.conf.tpl
-# sed -i "s|BITCOIND_RPC_PASSWORD=.*|BITCOIND_RPC_PASSWORD=$RPC_PASSWORD|" /home/node/app/docker/my-dojo/conf/docker-bitcoind.conf.tpl
-# sed -i "s|BITCOIND_INSTALL=.*|BITCOIND_INSTALL=off|" /home/node/app/docker/my-dojo/conf/docker-bitcoind.conf.tpl
-# sed -i "s|BITCOIND_IP=.*|BITCOIND_IP=$RPC_HOST|" /home/node/app/docker/my-dojo/conf/docker-bitcoind.conf.tpl
-# sed -i "s|BITCOIND_RPC_PORT=.*|BITCOIND_RPC_PORT=$RPC_PORT|" /home/node/app/docker/my-dojo/conf/docker-bitcoind.conf.tpl
-# sed -i "s|BITCOIND_ZMQ_RAWTXS=.*|BITCOIND_ZMQ_RAWTXS=28333|" /home/node/app/docker/my-dojo/conf/docker-bitcoind.conf.tpl
-# sed -i "s|BITCOIND_ZMQ_BLK_HASH=.*|BITCOIND_ZMQ_BLK_HASH=28332|" /home/node/app/docker/my-dojo/conf/docker-bitcoind.conf.tpl
+## Configuration Settings
+echo "Configuring Dojo..."
+sed -i "s|BITCOIND_RPC_USER=.*|BITCOIND_RPC_USER=$RPC_USER|" /root/.config/RoninDojo/user.conf
+sed -i "s|BITCOIND_RPC_PASSWORD=.*|BITCOIND_RPC_PASSWORD=$RPC_PASSWORD|" /root/.config/RoninDojo/user.conf
+sed -i "s|EXPLORER_KEY=.*|EXPLORER_KEY=$RPC_PASSWORD|" /root/.config/RoninDojo/user.conf
+
+# sed -i "s|BITCOIND_INSTALL=.*|BITCOIND_INSTALL=off|" /root/.config/RoninDojo/user.conf
+# sed -i "s|BITCOIND_IP=.*|BITCOIND_IP=$RPC_HOST|" /root/.config/RoninDojo/user.conf
+# sed -i "s|BITCOIND_RPC_PORT=.*|BITCOIND_RPC_PORT=$RPC_PORT|" /root/.config/RoninDojo/user.conf
+# sed -i "s|BITCOIND_ZMQ_RAWTXS=.*|BITCOIND_ZMQ_RAWTXS=28333|" /root/.config/RoninDojo/user.conf
+# sed -i "s|BITCOIND_ZMQ_BLK_HASH=.*|BITCOIND_ZMQ_BLK_HASH=28332|" /root/.config/RoninDojo/user.conf
 # sed -i "s|NET_DOJO_BITCOIND_IPV4=.*|NET_DOJO_BITCOIND_IPV4=$RPC_HOST|" /home/node/app/docker/my-dojo/.env
+
 
 
 # Starting Dojo API
