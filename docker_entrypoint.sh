@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 set -e
 
@@ -24,23 +24,23 @@ else
 	echo "Running on Bitcoin Core..."
 fi
 
-## Configuration Settings
-echo "Configuring Dojo..."
-sed -i "s|BITCOIND_RPC_USER=.*|BITCOIND_RPC_USER=$RPC_USER|" /home/node/app/docker/my-dojo/conf/docker-bitcoind.conf.tpl
-sed -i "s|BITCOIND_RPC_PASSWORD=.*|BITCOIND_RPC_PASSWORD=$RPC_PASSWORD|" /home/node/app/docker/my-dojo/conf/docker-bitcoind.conf.tpl
-sed -i "s|BITCOIND_INSTALL=.*|BITCOIND_INSTALL=off|" /home/node/app/docker/my-dojo/conf/docker-bitcoind.conf.tpl
-sed -i "s|BITCOIND_IP=.*|BITCOIND_IP=$RPC_HOST|" /home/node/app/docker/my-dojo/conf/docker-bitcoind.conf.tpl
-sed -i "s|BITCOIND_RPC_PORT=.*|BITCOIND_RPC_PORT=$RPC_PORT|" /home/node/app/docker/my-dojo/conf/docker-bitcoind.conf.tpl
-sed -i "s|BITCOIND_ZMQ_RAWTXS=.*|BITCOIND_ZMQ_RAWTXS=28333|" /home/node/app/docker/my-dojo/conf/docker-bitcoind.conf.tpl
-sed -i "s|BITCOIND_ZMQ_BLK_HASH=.*|BITCOIND_ZMQ_BLK_HASH=28332|" /home/node/app/docker/my-dojo/conf/docker-bitcoind.conf.tpl
-sed -i "s|NET_DOJO_BITCOIND_IPV4=.*|NET_DOJO_BITCOIND_IPV4=$RPC_HOST|" /home/node/app/docker/my-dojo/.env
+# ## Configuration Settings
+# echo "Configuring Dojo..."
+# sed -i "s|BITCOIND_RPC_USER=.*|BITCOIND_RPC_USER=$RPC_USER|" /home/node/app/docker/my-dojo/conf/docker-bitcoind.conf.tpl
+# sed -i "s|BITCOIND_RPC_PASSWORD=.*|BITCOIND_RPC_PASSWORD=$RPC_PASSWORD|" /home/node/app/docker/my-dojo/conf/docker-bitcoind.conf.tpl
+# sed -i "s|BITCOIND_INSTALL=.*|BITCOIND_INSTALL=off|" /home/node/app/docker/my-dojo/conf/docker-bitcoind.conf.tpl
+# sed -i "s|BITCOIND_IP=.*|BITCOIND_IP=$RPC_HOST|" /home/node/app/docker/my-dojo/conf/docker-bitcoind.conf.tpl
+# sed -i "s|BITCOIND_RPC_PORT=.*|BITCOIND_RPC_PORT=$RPC_PORT|" /home/node/app/docker/my-dojo/conf/docker-bitcoind.conf.tpl
+# sed -i "s|BITCOIND_ZMQ_RAWTXS=.*|BITCOIND_ZMQ_RAWTXS=28333|" /home/node/app/docker/my-dojo/conf/docker-bitcoind.conf.tpl
+# sed -i "s|BITCOIND_ZMQ_BLK_HASH=.*|BITCOIND_ZMQ_BLK_HASH=28332|" /home/node/app/docker/my-dojo/conf/docker-bitcoind.conf.tpl
+# sed -i "s|NET_DOJO_BITCOIND_IPV4=.*|NET_DOJO_BITCOIND_IPV4=$RPC_HOST|" /home/node/app/docker/my-dojo/.env
 
-
-while true; do { sleep 100; echo sleeping; } done
 
 # Starting Dojo API
 echo "Starting Dojo..."
-exec tini -p SIGTERM -- /home/node/app/wait-for-it.sh dojo.embassy:3306 --timeout=720 --strict -- /home/node/app/restart.sh
+while true; do { sleep 100; echo sleeping; } done
+
+# exec tini -p SIGTERM -- 
 
 trap _term SIGTERM
 wait $jm_child

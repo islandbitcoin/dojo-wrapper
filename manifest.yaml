@@ -1,5 +1,5 @@
 id: dojo 
-title: Dojo
+title: RoninDojo
 version: 1.17.0
 release-notes: Initial release to embassyOS
 license: mit
@@ -24,25 +24,7 @@ main:
   args: []
   mounts:
     main: /root
-health-checks:
-  web:
-    name: Dojo UI
-    success-message: dojo is ready to visit in a web browser
-    type: docker
-    image: main
-    entrypoint: "check-web.sh"
-    args: []
-    system: false
-    io-format: json
-  api:
-    name: Dojo API
-    success-message: The dojo API is accessible and responding
-    type: docker
-    image: main
-    entrypoint: "check-api.sh"
-    args: []
-    system: false
-    io-format: json
+health-checks: {}
 config:
   get:
     type: script
@@ -137,4 +119,3 @@ backup:
     mounts:
       BACKUP: "/mnt/backup"
       main: "/root/data"
-

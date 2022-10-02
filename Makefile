@@ -21,7 +21,7 @@ clean:
 scripts/embassy.js: $(TS_FILES)
 	deno bundle scripts/embassy.ts scripts/embassy.js
 
-image.tar: Dockerfile docker_entrypoint.sh assets/utils/*
+image.tar: Dockerfile docker_entrypoint.sh 
 	docker buildx build --tag start9/$(PKG_ID)/main:$(PKG_VERSION) --platform=linux/arm64 -o type=docker,dest=image.tar .
 
 $(PKG_ID).s9pk: manifest.yaml docs/instructions.md icon.svg LICENSE scripts/embassy.js image.tar
