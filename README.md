@@ -1,6 +1,6 @@
-# Wrapper for JAM
+# Wrapper for dojo
 
-JAM is a web UI for JoinMarket with focus on user-friendliness. It aims to provide sensible defaults and be easy to use for beginners while still providing the features advanced users expect.
+Samourai Dojo is the backing server for Samourai Wallet. This .s9pk wrapper will allow you to run Dojo on your Embassy.
 
 ## Dependencies
 
@@ -59,8 +59,8 @@ cd embassy-os/backend/
 Clone the project locally. Note the submodule link to the original project(s). 
 
 ```
-git clone https://github.com/Start9Labs/jam-wrapper.git
-cd jam-wrapper
+git clone https://github.com/Start9Labs/dojo-wrapper.git
+cd dojo-wrapper
 git submodule update --init --recursive
 ```
 ## Building
@@ -88,10 +88,10 @@ Run the following command to install the package:
 ```
 embassy-cli auth login
 #Enter your embassy password then run:
-embassy-cli package install /path/to/jam.s9pk
+embassy-cli package install /path/to/dojo.s9pk
 ```
 ## Verify Install
 
-Go to your Embassy Services page, select JAM and start the service.
+Go to your Embassy Services page, select dojo and start the service.
 
 #Done

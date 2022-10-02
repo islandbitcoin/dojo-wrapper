@@ -1,21 +1,20 @@
-id: jam 
-title: JAM
-version: 0.1.0
-release-notes: Initial release to EmbassyOS!
+id: dojo 
+title: Dojo
+version: 1.17.0
+release-notes: Initial release to embassyOS
 license: mit
-wrapper-repo: "https://github.com/Start9Labs/jam-wrapper"
-upstream-repo: "https://github.com/joinmarket-webui/jam-docker"
-support-site: "https://github.com/joinmarket-webui/jam-docker/issues"
-marketing-site: "https://t.me/JoinMarketWebUI"
+wrapper-repo: "https://github.com/Start9Labs/dojo-wrapper"
+upstream-repo: "https://code.samourai.io/dojo/samourai-dojo"
+support-site: "https://code.samourai.io/help"
+marketing-site: "https://ronindojo.io/"
 build: ["make"]
 description:
-  short: JAM - A friendly UI for JoinMarket 
+  short: Your private backing server for Samourai Wallet. 
   long: |
-    Jam is a web UI for JoinMarket with focus on user-friendliness. 
-    It aims to provide sensible defaults and be easy to use for beginners while still providing the features advanced users expect.
+    Samourai Dojo is the backing server for Samourai Wallet. Provides HD account & loose addresses (BIP47) balances & transactions lists. Provides unspent output lists to the wallet. PushTX endpoint broadcasts transactions through the backing bitcoind node.
 assets:
   license: LICENSE
-  icon: icon.png
+  icon: icon.svg
   instructions: docs/instructions.md
   docker-images: image.tar
 main:
@@ -27,8 +26,8 @@ main:
     main: /root
 health-checks:
   web:
-    name: JAM UI
-    success-message: JAM is ready to visit in a web browser
+    name: Dojo UI
+    success-message: dojo is ready to visit in a web browser
     type: docker
     image: main
     entrypoint: "check-web.sh"
@@ -36,8 +35,8 @@ health-checks:
     system: false
     io-format: json
   api:
-    name: JAM API
-    success-message: The JAM API is accessible and responding
+    name: Dojo API
+    success-message: The dojo API is accessible and responding
     type: docker
     image: main
     entrypoint: "check-api.sh"
@@ -58,19 +57,23 @@ volumes:
     type: assets 
 interfaces:
   main:
-    name: JAM Web UI
+    name: Dojo Web UI
     description: Specifies the interface to listen on for HTTP connections.
     tor-config:
       port-mapping:
-        80: "80"
         8080: "8080"
+        8081: "8081"
+        8082: "8082"
     lan-config:
       443:
         ssl: true
-        internal: 80
-      8080:
-        ssl: false
         internal: 8080
+      8081:
+        ssl: true
+        internal: 80
+      8082:
+        ssl: true
+        internal: 80
     ui: true
     protocols:
       - tcp
@@ -98,9 +101,6 @@ dependencies:
         type: script
       auto-configure:
         type: script
-alerts:
-  start: |
-    ⚠️ WARNING ⚠️  This is ALPHA software. Use with caution. 
 migrations:
   from:
     "*":
