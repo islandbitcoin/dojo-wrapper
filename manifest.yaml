@@ -24,7 +24,6 @@ main:
   args: []
   mounts:
     main: /app
-    dojo: /dev/sda1
 health-checks: {}
 config:
   get:
@@ -38,25 +37,15 @@ volumes:
     type: data
   compat:
     type: assets
-  dojo:
-    type: data 
 interfaces:
   main:
     name: Dojo Web UI
     description: Specifies the interface to listen on for HTTP connections.
     tor-config:
       port-mapping:
-        8080: "8080"
-        8081: "8081"
-        8082: "8082"
+        8080: "80"
     lan-config:
       443:
-        ssl: true
-        internal: 8080
-      8081:
-        ssl: true
-        internal: 80
-      8082:
         ssl: true
         internal: 80
     ui: true

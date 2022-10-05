@@ -1,4 +1,4 @@
-# Wrapper for dojo
+# Wrapper for Dojo
 
 Samourai Dojo is the backing server for Samourai Wallet. This .s9pk wrapper will allow you to run Dojo on your Embassy.
 
